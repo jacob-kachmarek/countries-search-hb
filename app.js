@@ -2,7 +2,7 @@
 // Slice A: import getCountries from fetch-utils.js
 // Slice B: import getContinents from fetch-utils.js
 
-import { getCountries } from './fetch-utils.js';
+import { getContinents, getCountries } from './fetch-utils.js';
 import { renderContinentOption, renderCountry } from './render-utils.js';
 
 /* Get DOM Elements */
@@ -19,8 +19,11 @@ window.addEventListener('load', async () => {
     // call findCountries function with no arguments to fetch all countries (Slice A);
     findCountries();
     // Slice B: call asynchronous getContinents fetch function and set to response variable
+    const response = await getContinents();
     // Slice B: set the continents state to the response.data
+    continents = response.data;
     // Slice B: call displayContinentOptions function;
+    displayContinentOptions();
 });
 
 async function findCountries(continent) {
@@ -54,5 +57,7 @@ function displayCountries() {
 function displayContinentOptions() {
     for (const continent of continents) {
         // Slice B: Call continent render function and append to continent selector
+        const option = renderContinentOption(continent);
+        continentSelect.append(option);
     }
 }
